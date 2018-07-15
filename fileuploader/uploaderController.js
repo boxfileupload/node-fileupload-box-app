@@ -11,14 +11,14 @@ const CHUNKED_UPLOAD_MINIMUM = 20000000;
 
 
 
+          console.log("form.uploadDir>>>>>>", path.join(__dirname, '..', '/uploads'))
 exports.uploadBoxFile = function(req, res) {
   async.waterfall( 
-  	[
-  	   function(callback) {
-  	   	  var form = new formidable.IncomingForm();
-		  form.multiples = true;
-		  form.uploadDir = path.join(__dirname, '..', '/uploads');
-          console.log("form.uploadDir>>>>>>", form.uploadDir)
+    [
+       function(callback) {
+          var form = new formidable.IncomingForm();
+          form.multiples = true;
+          form.uploadDir = path.join(__dirname, '..', '/uploads');
 		  form.on('file', function(field, file) {
 		    fs.rename(file.path, path.join(form.uploadDir, file.name));
 		  });
