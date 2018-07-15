@@ -18,6 +18,7 @@ exports.uploadBoxFile = function(req, res) {
   	   	  var form = new formidable.IncomingForm();
 		  form.multiples = true;
 		  form.uploadDir = path.join(__dirname, '..', '/uploads');
+          console.log("form.uploadDir>>>>>>", form.uploadDir)
 		  form.on('file', function(field, file) {
 		    fs.rename(file.path, path.join(form.uploadDir, file.name));
 		  });
@@ -141,7 +142,6 @@ function uploadAFile(client, folderId, fileName, toUploadFile) {
         });
 }
 
-console.log("4")
 
 function uploadANewFileVersion(client, conflictId, toUploadFile) {
     if (toUploadFile.length < CHUNKED_UPLOAD_MINIMUM) {
