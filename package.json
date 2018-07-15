@@ -1,0 +1,28 @@
+{
+  "name": "box-custom-upload-file",
+  "version": "1.0.0",
+  "description": "upload files into box folders",
+  "main": "server.js",
+  "scripts": {
+    "test": "no"
+  },
+  "repository": {
+    "type": "git",
+    "url": "no"
+  },
+  "keywords": [
+    "express"
+  ],
+  "author": "Amar",
+  "license": "ISC",
+  "dependencies": {
+    "async": "^2.6.1",
+    "box-node-sdk": "^1.19.0",
+    "crypto": "^1.0.1",
+    "express": "^4.16.3",
+    "formidable": "^1.2.1",
+    "fs": "0.0.1-security",
+    "path": "^0.12.7",
+    "rootpath": "^0.1.2"
+  }
+}
