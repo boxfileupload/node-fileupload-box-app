@@ -4,11 +4,12 @@
   "description": "upload files into box folders",
   "main": "server.js",
   "scripts": {
+    "start": "node server.js",
     "test": "no"
   },
   "repository": {
     "type": "git",
-    "url": "no"
+    "url": "https://github.com/boxfileupload/node-fileupload-box-app"
   },
   "keywords": [
     "express"
