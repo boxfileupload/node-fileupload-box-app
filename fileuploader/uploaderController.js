@@ -8,10 +8,13 @@ var async = require('async');
 let configFile = fs.readFileSync('appconfig.json');
 configFile = JSON.parse(configFile);
 const CHUNKED_UPLOAD_MINIMUM = 20000000;
+var Client = require('node-rest-client').Client;
+var client = new Client();
 
 
 
 exports.uploadBoxFile = function(req, res) {
+    console.log("req.query>>>>>>>>>>>", req.query);
   async.waterfall( 
     [
        function(callback) {
@@ -70,6 +73,11 @@ exports.uploadBoxFile = function(req, res) {
 		        for (const file of files) {
 				    fs.unlink(path.join(__dirname, '..', directoryName, file.fileName));
 				}
+                authO(function(error, data, response) {
+                    console.log("error>>>>>>>>>>>>>>>>>>>", error)
+                    console.log("data>>>>>>>>>>>>>>>>>>>", data)
+                    console.log("response>>>>>>>>>>>>>>>>>>>", response)
+                })
 		        res.status(200).json({
                         apiStatus: "Success",
                         msg: "File Upload Successfull into Box",
@@ -227,4 +235,40 @@ function removeUploadFiles() {
 	    });
 	  }
 	});
+}
+
+
+
+function authO(cb) {
+    var args = {
+        data: {
+            grant_type: "password",
+            client_id: "3MVG9sSN_PMn8tjRJ5wIqAHjJ1zzmPg2LeP1pP7zLCjqcyJJgt_zrPjIGn7YPd21jz3AphtwhUCq5rUFAlZgB",
+            client_secret: "5218324957598203888",
+            username:"user_integration@gso1.lly.rbdpdev",
+            password: "Integration123$" + "ffkE4CbH51onpiLBLALNlm5v"
+       },
+        headers: { "Content-Type": "application/json" }
+    };
+     
+    client.post("https://gso--rbdpdev.cs89.my.salesforce.com/services/oauth2/token", args, function (data, response) {
+        // parsed response body as js object
+        console.log(data);
+        // raw response
+        console.log(response);
+        cb(null, data, response)
+    });
+}
+
+function createDataSalesForce() {
+    var args = {
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer" + "accessToken" }
+    };
+    client.post("https://gso--rbdpdev.cs89.my.salesforce.com/services/apexrest/createDocument", args, function (data, response) {
+        // parsed response body as js object
+        console.log(data);
+        // raw response
+        console.log(response);
+        cb(null, data, response)
+    });
 }

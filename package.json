@@ -18,11 +18,13 @@
   "license": "ISC",
   "dependencies": {
     "async": "^2.6.1",
+    "body-parser": "^1.18.3",
     "box-node-sdk": "^1.19.0",
     "crypto": "^1.0.1",
     "express": "^4.16.3",
     "formidable": "^1.2.1",
     "fs": "0.0.1-security",
+    "node-rest-client": "^3.1.0",
     "path": "^0.12.7",
     "rootpath": "^0.1.2"
   }

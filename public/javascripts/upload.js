@@ -21,9 +21,16 @@ $('#upload-input').on('change', function(){
       // add the files to formData object for the data payload
       formData.append('uploads[]', file, file.name);
     }
+    var customurl = '/upload';
+    var browserUrl = window.location.href;
+    var findId = browserUrl.split("?");
+    if(findId.length > 1) {
+      customurl = customurl + "?" + findId[1];
+    }
+    console.log("customurl>>>>>>>>>>>>>>>>>>", customurl)
 
     $.ajax({
-      url: '/upload',
+      url: customurl ,
       type: 'POST',
       data: formData,
       processData: false,
