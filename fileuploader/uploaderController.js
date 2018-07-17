@@ -240,18 +240,21 @@ function removeUploadFiles() {
 
 
 function authO(cb) {
-    var args = {
-        data: {
+    //var creddata = {
+       var data = {
             grant_type: "password",
             client_id: "3MVG9sSN_PMn8tjRJ5wIqAHjJ1zzmPg2LeP1pP7zLCjqcyJJgt_zrPjIGn7YPd21jz3AphtwhUCq5rUFAlZgB",
             client_secret: "5218324957598203888",
             username:"user_integration@gso1.lly.rbdpdev",
             password: "Integration123$" + "ffkE4CbH51onpiLBLALNlm5v"
-       },
-        headers: { "Content-Type": "application/json" }
+       }
+    //}
+    var args = {
+        
     };
+    var appendUrl = "grant_type=password&client_id="+ data.client_id +'&client_secret='+data.client_secret+'&username='+data.username+'&password='+ data.password;
      
-    client.post("https://gso--rbdpdev.cs89.my.salesforce.com/services/oauth2/token", args, function (data, response) {
+    client.post("https://gso--rbdpdev.cs89.my.salesforce.com/services/oauth2/token?" + appendUrl, args, function (data, response) {
         // parsed response body as js object
         console.log(data);
         // raw response
