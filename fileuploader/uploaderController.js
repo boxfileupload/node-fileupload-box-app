@@ -78,6 +78,7 @@ exports.uploadBoxFile = function(req, res) {
                     var fileData = results[0].entries[0];
                     var uploadFileInfo = {"Name":fileData.name,"Size":fileData.size,"result":"Success","BoxID":fileData.id,"RecordID": req.query.id,"Type":fileData.name.split(".")[1]} 
                     if(data) {
+                        console.log("uploadFileInfo>>>>>>>>>>>>", uploadFileInfo)
                         createDataSalesForce(uploadFileInfo, data.access_token, function(error, recordCreateData){
                             console.log("recordCreateData>>>>>>>>>>>>>>", recordCreateData)
                             res.status(200).json({
