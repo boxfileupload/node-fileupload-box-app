@@ -11,7 +11,6 @@ const CHUNKED_UPLOAD_MINIMUM = 20000000;
 
 
 
-          console.log("form.uploadDir>>>>>>", path.join(__dirname, '..', '/uploads'))
 exports.uploadBoxFile = function(req, res) {
   async.waterfall( 
     [
@@ -73,7 +72,8 @@ exports.uploadBoxFile = function(req, res) {
 				}
 		        res.status(200).json({
                         apiStatus: "Success",
-                        msg: "File Upload Successfull into Box"
+                        msg: "File Upload Successfull into Box",
+                        output: results
                     });
 		    })
 		    .catch((err) => {
