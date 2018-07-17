@@ -16,7 +16,7 @@ exports.uploadBoxFile = function(req, res) {
     [
        function(callback) {
           var form = new formidable.IncomingForm();
-          form.multiples = true;
+          
           form.uploadDir = path.join(__dirname, '..', '/uploads');
 		  form.on('file', function(field, file) {
 		    fs.rename(file.path, path.join(form.uploadDir, file.name));
