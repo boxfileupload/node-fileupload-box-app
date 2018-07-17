@@ -76,7 +76,8 @@ exports.uploadBoxFile = function(req, res) {
                 authO(function(error, data) {
                     console.log("data>>>>>>>>>>>>>>>>>>>", data)
                     var fileData = results[0].entries[0];
-                    var uploadFileInfo = {"Name":fileData.name,"Size":fileData.size.toString(),"result":"Success","BoxID":fileData.id,"RecordID": req.query.id,"Type":fileData.name.split(".")[1]} 
+                    
+                    var uploadFileInfo = {"req":{"Name":fileData.name,"Size":fileData.size.toString(),"result":"Success","BoxID":fileData.id,"RecordID": req.query.id,"Type":fileData.name.split(".")[1]}}
                     if(data) {
                         console.log("uploadFileInfo>>>>>>>>>>>>", uploadFileInfo)
                         createDataSalesForce(uploadFileInfo, data.access_token, function(error, recordCreateData){
