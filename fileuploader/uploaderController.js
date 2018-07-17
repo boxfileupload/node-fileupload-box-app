@@ -73,16 +73,22 @@ exports.uploadBoxFile = function(req, res) {
 		        for (const file of files) {
 				    fs.unlink(path.join(__dirname, '..', directoryName, file.fileName));
 				}
-                authO(function(error, data, response) {
-                    console.log("error>>>>>>>>>>>>>>>>>>>", error)
+                authO(function(error, data) {
                     console.log("data>>>>>>>>>>>>>>>>>>>", data)
-                    console.log("response>>>>>>>>>>>>>>>>>>>", response)
+                    var fileData = results[0].entries[0];
+                    var uploadFileInfo = {"Name":fileData.name,"Size":fileData.size,"result":"Success","BoxID":fileData.id,"RecordID": req.query.id,"Type":fileData.name.split(".")[1]} 
+                    if(data) {
+                        createDataSalesForce(uploadFileInfo, data.access_token, , function(error, recordCreateData){
+                            console.log("recordCreateData>>>>>>>>>>>>>>", recordCreateData)
+                            res.status(200).json({
+                                apiStatus: "Success",
+                                msg: "File Upload Successfull into Box",
+                                output: results
+                            });
+                        })
+
+                    }
                 })
-		        res.status(200).json({
-                        apiStatus: "Success",
-                        msg: "File Upload Successfull into Box",
-                        output: results
-                    });
 		    })
 		    .catch((err) => {
 		        for (const file of files) {
@@ -257,21 +263,16 @@ function authO(cb) {
     client.post("https://gso--rbdpdev.cs89.my.salesforce.com/services/oauth2/token?" + appendUrl, args, function (data, response) {
         // parsed response body as js object
         console.log(data);
-        // raw response
-        console.log(response);
-        cb(null, data, response)
+        cb(null, data)
     });
 }
 
-function createDataSalesForce() {
+function createDataSalesForce(uploadFileInfo, accessToken, cb) {
     var args = {
-        headers: { "Content-Type": "application/json", "Authorization": "Bearer" + "accessToken" }
+        data: uploadFileInfo ,
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer" + accessToken }
     };
     client.post("https://gso--rbdpdev.cs89.my.salesforce.com/services/apexrest/createDocument", args, function (data, response) {
-        // parsed response body as js object
-        console.log(data);
-        // raw response
-        console.log(response);
-        cb(null, data, response)
+        cb(null, data)
     });
 }
