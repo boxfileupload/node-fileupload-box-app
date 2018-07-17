@@ -270,7 +270,7 @@ function authO(cb) {
 function createDataSalesForce(uploadFileInfo, accessToken, cb) {
     var args = {
         data: uploadFileInfo ,
-        headers: { "Content-Type": "application/json", "Authorization": "Bearer" + accessToken }
+        headers: { "Content-Type": "application/json", "Authorization": "Bearer" + " " + accessToken }
     };
     client.post("https://gso--rbdpdev.cs89.my.salesforce.com/services/apexrest/createDocument", args, function (data, response) {
         cb(null, data)
